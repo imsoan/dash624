@@ -1,22 +1,20 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Assignment 4 High-Fidelity 
-# 
-# #### - Meghana Kompally
-
-# In[4]:
+# In[ ]:
 
 
 from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
-# import matplotlib.pyplot as plt
-# import seaborn as sns
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import plotly.figure_factory as ff
+
+
+# In[4]:
+
 
 import pandas as pd
 import numpy as np
@@ -32,7 +30,7 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 # In[ ]:
 
 
-url = "2023-02-08-DATA624-Assignment4-Data.csv"
+url = "https://raw.githubusercontent.com/imsoan/dash624/master/2023-02-08-DATA624-Assignment4-Data.csv"
 df2 = load_data(url)
 
 
@@ -133,7 +131,7 @@ tmp = (pd.concat([
 # In[13]:
 
 
-px.scatter(tmp,
+fig2=px.scatter(tmp,
      x='1',
      y='5',
      color='cluster',
@@ -158,14 +156,14 @@ get_ipython().run_cell_magic('time', '', 'df = df2\n# df = circles\n# df = moons
 # In[18]:
 
 
-px.line(y = inertia,x = range(1,10), markers=True)
+fix3=px.line(y = inertia,x = range(1,10), markers=True)
 
 
 # 4 seemed to be a good number for the number of clusters
 
 # ### K Means
 
-# In[19]:
+# In[7]:
 
 
 from sklearn.cluster import KMeans
@@ -203,7 +201,7 @@ tmp=(pd.concat([
 # In[22]:
 
 
-px.scatter(tmp,
+fig4=px.scatter(tmp,
      x='5',
      y='6',
      color='cluster',
@@ -213,21 +211,21 @@ px.scatter(tmp,
 
 # ##### Silhouette Score
 
-# In[23]:
+# In[8]:
 
 
 from sklearn.metrics import silhouette_samples, silhouette_score
 
 
-# In[24]:
+# In[9]:
 
 
-get_ipython().run_cell_magic('time', '', 'df = df2\nsscore = []\n\nfor i in range(2,10):\n    kmeans = KMeans(\n        n_clusters = i, # Number of clusters to find\n        init = "k-means++", # How to place the initial cluster centroids,\n        max_iter= 100, # Maximum number of iterations for the algorithm to run\n        tol=0.0001, # Roughly how much the centroids need to change between iterations to keep going\n    ).fit(\n        df\n    )\n    \n    silhouette_avg = silhouette_score(df, kmeans.labels_)\n    sscore.append(silhouette_avg)\n    \n\npx.line(y = sscore,x = range(2,10), markers=True)\n')
+get_ipython().run_cell_magic('time', '', 'df = df2\nsscore = []\n\nfor i in range(2,10):\n    kmeans = KMeans(\n        n_clusters = i, # Number of clusters to find\n        init = "k-means++", # How to place the initial cluster centroids,\n        max_iter= 100, # Maximum number of iterations for the algorithm to run\n        tol=0.0001, # Roughly how much the centroids need to change between iterations to keep going\n    ).fit(\n        df\n    )\n    \n    silhouette_avg = silhouette_score(df, kmeans.labels_)\n    sscore.append(silhouette_avg)\n    \n\nfig5= px.line(y = sscore,x = range(2,10), markers=True)\n')
 
 
 # ##### Silhouette Values
 
-# In[30]:
+# In[10]:
 
 
 df = df2
@@ -254,7 +252,7 @@ tmp = (
     .sort_values(['cluster',0])
 )
 tmp=tmp.reset_index()
-px.bar(tmp,
+fig6=px.bar(tmp,
      x=0,
      color='cluster',
      
@@ -287,7 +285,7 @@ tmp=(pd.concat([
 # In[326]:
 
 
-px.scatter(tmp,
+fig7=px.scatter(tmp,
      x=0,
      y=1,
      color='6',
@@ -327,10 +325,9 @@ get_ipython().run_cell_magic('time', '', '\n# df = blobs\ndf = df2\n# df = moons
 
 app.layout = html.Div(
     [
-        html.H1("How do the vital signs and lab results pertaining to high blood pressure (hypertension) vary among various age groups and between the two sexes?"),
+        html.H1("AG"),
         """
-        To examine the proportion and prevalence of high blood pressure signs among various age groups and between sexes, we used four vital signs data (Heart Rate (beats per minute) [‘HR’], Systolic BP (mm Hg) [‘SBP’], Diastolic BP (mm Hg) [‘DBP’] and Mean arterial pressure (mm Hg) [‘MAP’]) and four lab results data (Calcium (mg/dL), Glucose (mg/dL), Creatinine (mg/dL) and Oxygen saturation from arterial blood (%)) of 4981 patients from two ICU units. We selected the vital signs that were strongly correlated with high blood pressure. We chose calcium as one of our lab results as it is important for healthy blood pressure, it helps blood vessels tighten and relax when they need to. Low calcium has been known to increase the prevalence of cardiovascular diseases like hypertension [2]. High blood pressure is twice as likely to strike a person with diabetes (high glucose) than a person without diabetes. In fact, a person with diabetes and high blood pressure is four times as likely to develop heart disease than someone who does not have either of the conditions. Furthermore, individuals with high creatinine levels have been known to increase their systolic blood pressure and low levels of saturated oxygen levels have been known to damage arteries by making them less elastic and decreasing blood flow. 
-Overall, we would like to identify with help of visualizations like density heat maps, strip plots and violin plots, which category of patients have higher risk of high blood pressure by screening the vital signs and lab test results. We assume that the older population would be at a higher risk compared with the younger groups of patients. We also chose those types of graphs as we found them to best present the data and answer the research question being explored. 
+       graph
 
         """,
         dcc.Graph(
