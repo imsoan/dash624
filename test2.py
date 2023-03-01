@@ -30,8 +30,8 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 # In[ ]:
 
 
-url = "https://raw.githubusercontent.com/imsoan/dash624/master/2023-02-08-DATA624-Assignment4-Data.csv"
-df2 = load_data(url)
+#url = "https://raw.githubusercontent.com/imsoan/dash624/master/2023-02-08-DATA624-Assignment4-Data.csv"
+#df2 = load_data(url)
 
 
 # In[ ]:
